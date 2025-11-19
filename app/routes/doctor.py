@@ -10,7 +10,6 @@ doctor = Blueprint('doctor', __name__, url_prefix='/doctor')
 
 
 @doctor.route('/')
-@doctor_required
 def dashboard():
     return render_template('doctor/Doc.html')
 
