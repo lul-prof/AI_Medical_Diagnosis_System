@@ -105,14 +105,7 @@ def predict():
                     print(f"DEBUG - Database Error: {str(db_err)}")
                     flash(f"Database Error: {str(db_err)}", "error")
 
-                #Send the email notification
-                try:
-                    send_diagnosis_notification(email, name, predicted_disease, descr)
-                    flash("Message sent to your email successfully", "success")
                 
-                except Exception as email_err:
-                    print(f"DEBUG - Email Error: {str(email_err)}")
-                    flash(f"Email Error: {str(email_err)}", "warning")
             else:
                 flash("Prediction returned empty result", "error")
         
