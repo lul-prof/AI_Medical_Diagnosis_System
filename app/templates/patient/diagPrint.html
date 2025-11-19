@@ -1,0 +1,654 @@
+{% extends "index.html" %}
+{% block title %}My Diagnosis Records{% endblock %}
+
+{% block content %}
+<style>
+    :root {
+        --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        --success-gradient: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        --danger-gradient: linear-gradient(135deg, #eb3349 0%, #f45c43 100%);
+        --info-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        --card-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        --card-shadow-hover: 0 20px 60px rgba(0, 0, 0, 0.15);
+    }
+
+    body {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        padding: 40px 20px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .diagnosis-container {
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+
+    /* Header Section */
+    .page-header {
+        background: white;
+        border-radius: 20px;
+        padding: 40px;
+        margin-bottom: 30px;
+        box-shadow: var(--card-shadow);
+        text-align: center;
+    }
+
+    .page-header h1 {
+        background: var(--primary-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+    .page-header p {
+        color: #6c757d;
+        font-size: 1.1rem;
+    }
+
+    /* Stats Cards */
+    .stats-row {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        margin-bottom: 30px;
+    }
+
+    .stat-card {
+        background: white;
+        border-radius: 15px;
+        padding: 25px;
+        box-shadow: var(--card-shadow);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .stat-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: var(--primary-gradient);
+    }
+
+    .stat-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--card-shadow-hover);
+    }
+
+    .stat-card i {
+        font-size: 2.5rem;
+        background: var(--primary-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 10px;
+    }
+
+    .stat-card h3 {
+        color: #2c3e50;
+        font-size: 2rem;
+        font-weight: 700;
+        margin: 10px 0 5px 0;
+    }
+
+    .stat-card p {
+        color: #6c757d;
+        font-size: 0.9rem;
+        margin: 0;
+    }
+
+    /* Diagnosis Cards */
+    .diagnoses-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 25px;
+        margin-bottom: 30px;
+    }
+
+    .diagnosis-card {
+        background: white;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: var(--card-shadow);
+        transition: all 0.3s ease;
+        position: relative;
+    }
+
+    .diagnosis-card:hover {
+        transform: translateY(-8px);
+        box-shadow: var(--card-shadow-hover);
+    }
+
+    .diagnosis-card-header {
+        background: var(--primary-gradient);
+        color: white;
+        padding: 25px;
+        position: relative;
+    }
+
+    .diagnosis-card-header .date {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 0.95rem;
+        opacity: 0.95;
+        margin-bottom: 10px;
+    }
+
+    .diagnosis-card-header .diagnosis-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin: 0;
+    }
+
+    .diagnosis-card-body {
+        padding: 25px;
+    }
+
+    .diagnosis-field {
+        margin-bottom: 20px;
+    }
+
+    .diagnosis-field label {
+        display: block;
+        color: #6c757d;
+        font-size: 0.85rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 8px;
+    }
+
+    .diagnosis-field .value {
+        color: #2c3e50;
+        font-size: 1rem;
+        line-height: 1.6;
+        background: #f8f9fa;
+        padding: 12px 15px;
+        border-radius: 10px;
+        border-left: 4px solid #667eea;
+    }
+
+    .diagnosis-card-footer {
+        padding: 20px 25px;
+        background: #f8f9fa;
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
+    }
+
+    /* Buttons */
+    .btn-modern {
+        padding: 12px 24px;
+        border: none;
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: 0.95rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        text-decoration: none;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-modern:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .btn-primary {
+        background: var(--primary-gradient);
+        color: white;
+    }
+
+    .btn-success {
+        background: var(--success-gradient);
+        color: white;
+    }
+
+    .btn-info {
+        background: var(--info-gradient);
+        color: white;
+    }
+
+    .btn-danger {
+        background: var(--danger-gradient);
+        color: white;
+    }
+
+    /* Empty State */
+    .empty-state {
+        background: white;
+        border-radius: 20px;
+        padding: 60px 40px;
+        text-align: center;
+        box-shadow: var(--card-shadow);
+    }
+
+    .empty-state i {
+        font-size: 5rem;
+        background: var(--primary-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 20px;
+    }
+
+    .empty-state h3 {
+        color: #2c3e50;
+        font-size: 1.8rem;
+        margin-bottom: 15px;
+    }
+
+    .empty-state p {
+        color: #6c757d;
+        font-size: 1.1rem;
+        margin-bottom: 30px;
+    }
+
+    /* Action Bar */
+    .action-bar {
+        background: white;
+        border-radius: 20px;
+        padding: 25px;
+        box-shadow: var(--card-shadow);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .action-bar-left {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .action-bar-right {
+        display: flex;
+        gap: 10px;
+    }
+
+    /* Badge */
+    .badge {
+        display: inline-block;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .badge-recent {
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        color: white;
+    }
+
+    /* Print Styles */
+    @media print {
+        body {
+            background: white;
+            padding: 0;
+        }
+
+        .action-bar,
+        .diagnosis-card-footer {
+            display: none !important;
+        }
+
+        .diagnosis-card {
+            page-break-inside: avoid;
+            box-shadow: none;
+            border: 1px solid #ddd;
+            margin-bottom: 20px;
+        }
+
+        .page-header {
+            box-shadow: none;
+            border-bottom: 2px solid #667eea;
+        }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        body {
+            padding: 20px 10px;
+        }
+
+        .page-header {
+            padding: 30px 20px;
+        }
+
+        .page-header h1 {
+            font-size: 2rem;
+        }
+
+        .diagnoses-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .stats-row {
+            grid-template-columns: 1fr;
+        }
+
+        .action-bar {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .action-bar-left,
+        .action-bar-right {
+            width: 100%;
+            justify-content: center;
+        }
+
+        .stat-card h3 {
+            font-size: 1.5rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .diagnosis-card-header {
+            padding: 20px;
+        }
+
+        .diagnosis-card-body {
+            padding: 20px;
+        }
+
+        .btn-modern {
+            padding: 10px 18px;
+            font-size: 0.9rem;
+        }
+    }
+
+    /* Loading Animation */
+    .loading {
+        text-align: center;
+        padding: 60px;
+    }
+
+    .loading i {
+        font-size: 3rem;
+        color: #667eea;
+        animation: spin 2s linear infinite;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+</style>
+
+<div class="diagnosis-container">
+    <!-- Page Header -->
+    <div class="page-header">
+        <h1><i class="fas fa-notes-medical"></i> My Diagnosis Records</h1>
+        <p>View and manage your medical self-diagnosis history</p>
+    </div>
+
+    {% if diagnoses %}
+        <!-- Stats Row -->
+        <div class="stats-row">
+            <div class="stat-card">
+                <i class="fas fa-file-medical"></i>
+                <h3>{{ diagnoses|length }}</h3>
+                <p>Total Records</p>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-calendar-check"></i>
+                <h3>{{ diagnoses[0].time.strftime('%b %Y') if diagnoses[0].time else 'N/A' }}</h3>
+                <p>Latest Check</p>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-user-md"></i>
+                <h3>{{ diagnoses[0].name if diagnoses[0].name else 'N/A' }}</h3>
+                <p>Patient Name</p>
+            </div>
+        </div>
+
+        <!-- Action Bar -->
+        <div class="action-bar">
+            <div class="action-bar-left">
+                <button onclick="window.print()" class="btn-modern btn-primary">
+                    <i class="fas fa-print"></i> Print All Records
+                </button>
+                <a href="{{ url_for('medical_test.predict') }}" class="btn-modern btn-success">
+                    <i class="fas fa-plus-circle"></i> New Diagnosis
+                </a>
+            </div>
+            <div class="action-bar-right">
+                <button onclick="location.reload()" class="btn-modern btn-info">
+                    <i class="fas fa-sync-alt"></i> Refresh
+                </button>
+            </div>
+        </div>
+
+        <!-- Diagnoses Grid -->
+        <div class="diagnoses-grid">
+            {% for diag in diagnoses %}
+            <div class="diagnosis-card">
+                <div class="diagnosis-card-header">
+                    <div class="date">
+                        <i class="fas fa-clock"></i>
+                        <span>{{ diag.time.strftime('%B %d, %Y at %I:%M %p') if diag.time else 'Date not available' }}</span>
+                        {% if loop.first %}
+                        <span class="badge badge-recent">Latest</span>
+                        {% endif %}
+                    </div>
+                    <h3 class="diagnosis-title">{{ diag.diagnosis if diag.diagnosis else 'No diagnosis' }}</h3>
+                </div>
+
+                <div class="diagnosis-card-body">
+                    <div class="diagnosis-field">
+                        <label><i class="fas fa-user"></i> Patient Name</label>
+                        <div class="value">{{ diag.name if diag.name else 'Not specified' }}</div>
+                    </div>
+
+                    <div class="diagnosis-field">
+                        <label><i class="fas fa-envelope"></i> Email</label>
+                        <div class="value">{{ diag.email if diag.email else 'Not specified' }}</div>
+                    </div>
+
+                    {% if diag.symptoms %}
+                    <div class="diagnosis-field">
+                        <label><i class="fas fa-heartbeat"></i> Symptoms</label>
+                        <div class="value">{{ diag.symptoms }}</div>
+                    </div>
+                    {% endif %}
+
+                    {% if diag.description %}
+                    <div class="diagnosis-field">
+                        <label><i class="fas fa-file-alt"></i> Description</label>
+                        <div class="value">{{ diag.description }}</div>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="diagnosis-card-footer">
+                    <button onclick="windows.print" class="btn-modern btn-info">
+                        <i class="fas fa-print"></i> Print
+                    </button>
+                
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+    {% else %}
+        <!-- Empty State -->
+        <div class="empty-state">
+            <i class="fas fa-clipboard-list"></i>
+            <h3>No Diagnosis Records Found</h3>
+            <p>You haven't completed any self-diagnoses yet. Start your first health assessment to track your wellness journey.</p>
+            <a href="{{ url_for('medical_test.predictN') }}" class="btn-modern btn-success">
+                <i class="fas fa-stethoscope"></i> Start Self-Diagnosis
+            </a>
+        </div>
+    {% endif %}
+</div>
+
+<script>
+    // Print individual card
+    function printCard(diagnosisId) {
+        const card = event.target.closest('.diagnosis-card');
+        const printWindow = window.open('', '_blank');
+        const currentDate = new Date().toLocaleDateString();
+        const currentTime = new Date().toLocaleTimeString();
+        const cardBody = card.querySelector('.diagnosis-card-body').innerHTML;
+        
+        const printContent = '<!DOCTYPE html>' +
+            '<html>' +
+            '<head>' +
+            '<title>Diagnosis Record</title>' +
+            '<style>' +
+            'body {' +
+            '    font-family: "Segoe UI", Arial, sans-serif;' +
+            '    padding: 40px;' +
+            '    max-width: 800px;' +
+            '    margin: 0 auto;' +
+            '}' +
+            '.header {' +
+            '    text-align: center;' +
+            '    border-bottom: 3px solid #667eea;' +
+            '    padding-bottom: 20px;' +
+            '    margin-bottom: 30px;' +
+            '}' +
+            '.header h1 {' +
+            '    color: #667eea;' +
+            '    margin: 0 0 10px 0;' +
+            '}' +
+            '.field {' +
+            '    margin-bottom: 20px;' +
+            '    padding: 15px;' +
+            '    background: #f8f9fa;' +
+            '    border-left: 4px solid #667eea;' +
+            '}' +
+            '.field label {' +
+            '    font-weight: 600;' +
+            '    color: #6c757d;' +
+            '    display: block;' +
+            '    margin-bottom: 5px;' +
+            '    font-size: 0.9rem;' +
+            '}' +
+            '.field .value {' +
+            '    color: #2c3e50;' +
+            '    line-height: 1.6;' +
+            '}' +
+            '.footer {' +
+            '    margin-top: 40px;' +
+            '    text-align: center;' +
+            '    color: #6c757d;' +
+            '    font-size: 0.9rem;' +
+            '    border-top: 1px solid #dee2e6;' +
+            '    padding-top: 20px;' +
+            '}' +
+            '</style>' +
+            '</head>' +
+            '<body>' +
+            '<div class="header">' +
+            '<h1>Medical Diagnosis Record</h1>' +
+            '<p>Patient Health Assessment</p>' +
+            '</div>' +
+            cardBody +
+            '<div class="footer">' +
+            '<p>Printed on ' + currentDate + ' at ' + currentTime + '</p>' +
+            '<p><strong>Note:</strong> This is a self-diagnosis record. Please consult with a healthcare professional for proper medical advice.</p>' +
+            '</div>' +
+            '</body>' +
+            '</html>';
+        
+        printWindow.document.write(printContent);
+        printWindow.document.close();
+        
+        setTimeout(function() {
+            printWindow.print();
+            printWindow.close();
+        }, 250);
+    }
+
+    // Add smooth scroll animation
+    document.addEventListener('DOMContentLoaded', () => {
+        const cards = document.querySelectorAll('.diagnosis-card');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }, index * 100);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        cards.forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'all 0.5s ease';
+            observer.observe(card);
+        });
+    });
+
+    // Add notification for actions
+    function showNotification(message, type = 'success') {
+        const notification = document.createElement('div');
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: ${type === 'success' ? '#11998e' : '#eb3349'};
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            z-index: 9999;
+            animation: slideIn 0.3s ease;
+        `;
+        notification.textContent = message;
+        document.body.appendChild(notification);
+
+        setTimeout(() => {
+            notification.style.animation = 'slideOut 0.3s ease';
+            setTimeout(() => notification.remove(), 300);
+        }, 3000);
+    }
+
+    // Add CSS animations
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        @keyframes slideOut {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+        }
+    `;
+    document.head.appendChild(style);
+</script>
+{% endblock %}

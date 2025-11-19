@@ -1,0 +1,32 @@
+{% extends "admin/admin.html" %}
+
+{% block title %}View-Patients{% endblock %}
+
+{% block admin %}
+<div class="p-view" style="justify-self: center;">
+    <p style="text-align: center;">Self Diagnosis Patients</p>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>fname</th>
+            <th>lname</th> 
+            <th>email</th>
+            <th>contact</th>           
+        </tr>
+        {% for patient in patients %}
+        <tr>
+            <td>{{ patient.id }}</td>
+            <td>{{ patient.fname }}</td>
+            <td>{{ patient.lname }}</td>
+            <td>{{ patient.email }}</td>
+            <td>{{ patient.contact }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+<p style="text-align: center; margin-top: 20px;">
+<button class="print-btn" onclick="window.print()">Print Records</button>
+</p>
+</div>
+
+{% endblock %}
+

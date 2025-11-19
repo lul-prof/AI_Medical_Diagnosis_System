@@ -1,0 +1,92 @@
+{% extends "doctor/Doc.html" %}
+{% block title %}Heart-Test-Platform{% endblock %}
+
+    {% block p %}Heart Test Platform{% endblock %}
+    
+    {% block section %}
+    <div class="her-res" style="justify-self: center;">
+        <button style="background-color: green; border: 2px solid black; border-radius: 10px; padding: 10px;"><a href="{{ url_for('doctor.HeartResultBtn') }}" style="text-decoration: none; color: white;">View Records</a></button>
+    </div>
+  <div class="form-selc">
+    <fieldset>
+        <form action="{{ url_for('doctor.TestHeart') }}" method="post">
+            <p><input type="text" name="name" placeholder="Patients Name" required> <input type="text" name="age" required placeholder="Patients Age"></p>
+           
+            <p>
+            <label style="font-size: 15px;">Sex</label>
+            <select name="sex" required>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select>
+            </p>
+            <p><input type="text" name="cp" required placeholder="Chest Pain Range"> <input type="text" name="rbp" required placeholder="Resting Blood Pressure"></p>
+            
+            <p><input type="text" name="chol" required placeholder="Serum Cholestral in mg/dl"> <input type="text" name="fbs" required placeholder="Fasting Blood Sugar>120mg/dl"></p>
+            <p></p>
+            <p><input type="text" name="rer" required placeholder="Resting Electrocardiographic result"> <input type="text" name="mhr" required placeholder="Maximum Heart Rate"></p>
+            <p></p>
+            <p><input type="text" name="eia" required placeholder="Exercise Induced Angina"> <input type="text" name="st" required placeholder="ST Depression Induced by Exercise"></p>
+            <p></p>
+            <p><input type="text" name="slope" required placeholder="Slope Of peak exercise"> <input type="text" name="vessels" required placeholder="Major Vesselcs Coloured by Flourosopy"></p>
+            <p></p>
+            <p><input type="text" name="defects" required placeholder="Defects Identified"></p>
+            <input type="submit" value="Search">
+        </form>
+    </fieldset>
+  </div>
+</div>
+{% if heart_diagnosis %}
+<div class="results2">
+    <p style="font-size: 12px;">Heart Test results</p>
+    <p>
+    <button class="dis" onclick="openPopup2()">Diagnosis</button> <button onclick="openPopup5()">Remedies</button>
+    </p>
+</div>
+{% endif %}
+
+<div class="popup2" id="popup2">
+    <p style="font-size: 12px;">
+       {{ heart_diagnosis }}
+
+        <button type="button" onclick="closePopup2()">OK</button>
+    </p>
+</div> 
+
+
+{% if remedies %}
+<div class="popup5" id="popup5">
+    <h3>Heart Remedies</h3>
+    <ol>
+        {% for remedy in remedies %}
+            <li>{{ remedy }}</li>
+        {% endfor %}
+        <button type="button" onclick="closePopup5()">OK</button>
+    </ol>
+</div>
+{% endif %}
+
+
+<script>
+let popup1=document.getElementById("popup2");
+
+
+function openPopup2(){
+    popup1.classList.add("open-popup2");
+}
+function closePopup2(){
+    popup1.classList.remove("open-popup2");
+}
+
+/* Popup 5*/
+let popup5=document.getElementById("popup5");
+
+
+function openPopup5(){
+    popup5.classList.add("open-popup5");
+}
+function closePopup5(){
+    popup5.classList.remove("open-popup5");
+}
+</script>
+
+{% endblock %}

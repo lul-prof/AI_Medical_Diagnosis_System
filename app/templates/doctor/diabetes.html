@@ -1,0 +1,83 @@
+{% extends "doctor/Doc.html" %}
+{% block title %}Diabetes-Test-Platform{% endblock %}
+
+    {% block p %}Diabetes Test Platform{% endblock %}
+    
+
+    {% block section %}
+    <div class="diab-res" style="justify-self: center;">
+        <button style="background-color: green; border: 2px solid black; border-radius: 10px; padding: 10px;"><a href="{{ url_for('doctor.DiabResultBtn') }}" style="text-decoration: none; color: white;"> View Records</a></button>
+    </div>
+  <div class="form-sel">
+    <fieldset>
+        <form action="{{ url_for('doctor.TestDiabetes') }}" method="post">
+            <p><input type="text" name="name" placeholder="Patient Name" required> </p>
+            <p><input type="text" name="pregnancy" placeholder="Number Of pregnancies" required></p>
+            <p><input type="text" name="gluc" placeholder="Glucose Level" required></p>
+            <p><input type="text" name="bp" placeholder="Blood Pressure Value"  required></p>
+            <p><input type="text" name="skt" placeholder="Skin Thickness Value" required></p>
+            <p><input type="text" name="insulin" placeholder="Insulin Level" required></p>
+            <p><input type="text" name="bmi" placeholder="BMI Value" required></p>
+            <p><input type="text" name="pedigree"placeholder="Diabetes Pedigree Function Value" required></p>
+            <p><input type="text" name="age" placeholder="Age of Patient" required></p>
+            <input type="submit" value="Search">
+        </form>
+    </fieldset>
+  </div>
+
+
+{% if diab_diagnosis %}
+<p style="font-size: 20px; text-align: center;">Diabetes Test Results</p>
+
+<div class="results">
+    <button class="dis" onclick="openPopup1()">Diagnosis</button> <button onclick="openPopup4()">Remedies</button>   
+</div>
+{% endif %}
+
+
+<div class="popup1" id="popup1">
+    <p style="font-size: 15px; font-weight: normal;">
+       {{ diab_diagnosis }}
+
+        <button type="button" onclick="closePopup1()">OK</button>
+    </p>
+</div> 
+
+{% if remedies %}
+<div class="popup4" id="popup4">
+    <h3>Diabetes Remedies</h3>
+    <ol>
+        {% for remedy in remedies %}
+            <li>{{ remedy }}</li>
+        {% endfor %}
+        <button type="button" onclick="closePopup4()">OK</button>
+    </ol>
+</div>
+{% endif %}
+
+
+
+<script>
+let popup1=document.getElementById("popup1");
+
+
+function openPopup1(){
+    popup1.classList.add("open-popup1");
+}
+function closePopup1(){
+    popup1.classList.remove("open-popup1");
+}
+
+/*Popup 4*/
+let popup4=document.getElementById("popup4");
+
+
+function openPopup4(){
+    popup4.classList.add("open-popup4");
+}
+function closePopup4(){
+    popup4.classList.remove("open-popup4");
+}
+
+</script>
+{% endblock %}

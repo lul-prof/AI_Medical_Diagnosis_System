@@ -1,0 +1,214 @@
+{% extends "index.html" %}
+{% block title %}Patient Registration - KNH Medical System{% endblock %}
+
+{% block content %}
+<style>
+    .register-container {
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 40px;
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    }
+    
+    .register-header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    
+    .register-header h2 {
+        color: #2c3e50;
+        margin-bottom: 10px;
+    }
+    
+    .register-header p {
+        color: #7f8c8d;
+    }
+    
+    .icon {
+        font-size: 48px;
+        color: #4CAF50;
+        margin-bottom: 15px;
+    }
+    
+    .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+    }
+    
+    .form-group {
+        margin-bottom: 20px;
+    }
+    
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        color: #2c3e50;
+        font-weight: 600;
+    }
+    
+    .form-group input {
+        width: 100%;
+        padding: 12px 15px;
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        font-size: 16px;
+        transition: all 0.3s;
+    }
+    
+    .form-group input:focus {
+        outline: none;
+        border-color: #4CAF50;
+    }
+    
+    .btn-register {
+        width: 100%;
+        padding: 14px;
+        background: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.3s;
+        margin-top: 10px;
+    }
+    
+    .btn-register:hover {
+        background: #45a049;
+    }
+    
+    .password-strength {
+        height: 4px;
+        background: #e0e0e0;
+        border-radius: 2px;
+        margin-top: 8px;
+        overflow: hidden;
+    }
+    
+    .password-strength-bar {
+        height: 100%;
+        width: 0%;
+        transition: all 0.3s;
+    }
+    
+    .links {
+        text-align: center;
+        margin-top: 20px;
+    }
+    
+    .links a {
+        color: #4CAF50;
+        text-decoration: none;
+    }
+    
+    .links a:hover {
+        text-decoration: underline;
+    }
+    
+    .required {
+        color: red;
+    }
+</style>
+
+<div class="register-container">
+    <div class="register-header">
+        <div class="icon">
+            <i class="fa-solid fa-user-plus"></i>
+        </div>
+        <h2>Patient Registration</h2>
+        <p>Create your account to access medical services</p>
+    </div>
+    
+    <form method="POST" action="{{ url_for('auth.register_patient') }}">
+        <div class="form-row">
+            <div class="form-group">
+                <label for="fname">
+                    <i class="fa-solid fa-user"></i> First Name <span class="required">*</span>
+                </label>
+                <input type="text" id="fname" name="fname" placeholder="John" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="lname">
+                    <i class="fa-solid fa-user"></i> Last Name <span class="required">*</span>
+                </label>
+                <input type="text" id="lname" name="lname" placeholder="Doe" required>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="username">
+                <i class="fa-solid fa-at"></i> Username <span class="required">*</span>
+            </label>
+            <input type="text" id="username" name="username" placeholder="johndoe123" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="email">
+                <i class="fa-solid fa-envelope"></i> Email Address <span class="required">*</span>
+            </label>
+            <input type="email" id="email" name="email" placeholder="john.doe@example.com" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="contact">
+                <i class="fa-solid fa-phone"></i> Contact Number
+            </label>
+            <input type="tel" id="contact" name="contact" placeholder="+254 700 000 000">
+        </div>
+        
+        <div class="form-group">
+            <label for="password">
+                <i class="fa-solid fa-lock"></i> Password <span class="required">*</span>
+            </label>
+            <input type="password" id="password" name="password" placeholder="Enter strong password" required onkeyup="checkPasswordStrength()">
+            <div class="password-strength">
+                <div class="password-strength-bar" id="strengthBar"></div>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="password_confirm">
+                <i class="fa-solid fa-lock"></i> Confirm Password <span class="required">*</span>
+            </label>
+            <input type="password" id="password_confirm" name="password_confirm" placeholder="Re-enter password" required>
+        </div>
+        
+        <button type="submit" class="btn-register">
+            <i class="fa-solid fa-user-plus"></i> Create Account
+        </button>
+        
+        <div class="links">
+            Already have an account? <a href="{{ url_for('auth.login') }}">Login here</a>
+        </div>
+    </form>
+</div>
+
+<script>
+    function checkPasswordStrength() {
+        const password = document.getElementById('password').value;
+        const strengthBar = document.getElementById('strengthBar');
+        
+        let strength = 0;
+        if (password.length >= 8) strength += 25;
+        if (password.match(/[a-z]+/)) strength += 25;
+        if (password.match(/[A-Z]+/)) strength += 25;
+        if (password.match(/[0-9]+/)) strength += 25;
+        
+        strengthBar.style.width = strength + '%';
+        
+        if (strength < 50) {
+            strengthBar.style.background = '#ff4444';
+        } else if (strength < 75) {
+            strengthBar.style.background = '#ffaa00';
+        } else {
+            strengthBar.style.background = '#4CAF50';
+        }
+    }
+</script>
+
+{% endblock %}

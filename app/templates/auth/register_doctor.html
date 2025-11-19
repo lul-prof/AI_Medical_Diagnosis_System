@@ -1,0 +1,349 @@
+{% extends "index.html" %}
+{% block title %}Doctor Registration - KNH Medical System{% endblock %}
+
+{% block content %}
+<style>
+    .register-container {
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 40px;
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    }
+    
+    .register-header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    
+    .register-header h2 {
+        color: #2c3e50;
+        margin-bottom: 10px;
+    }
+    
+    .register-header p {
+        color: #7f8c8d;
+    }
+    
+    .icon {
+        font-size: 48px;
+        color: #2196F3;
+        margin-bottom: 15px;
+    }
+    
+    .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+    }
+    
+    .form-row-3 {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 15px;
+    }
+    
+    .form-group {
+        margin-bottom: 20px;
+    }
+    
+    .form-group.full-width {
+        grid-column: 1 / -1;
+    }
+    
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        color: #2c3e50;
+        font-weight: 600;
+    }
+    
+    .form-group input,
+    .form-group select {
+        width: 100%;
+        padding: 12px 15px;
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        font-size: 16px;
+        transition: all 0.3s;
+    }
+    
+    .form-group input:focus,
+    .form-group select:focus {
+        outline: none;
+        border-color: #2196F3;
+    }
+    
+    .form-group select {
+        cursor: pointer;
+        background: white;
+    }
+    
+    .btn-register {
+        width: 100%;
+        padding: 14px;
+        background: #2196F3;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.3s;
+        margin-top: 10px;
+    }
+    
+    .btn-register:hover {
+        background: #1976D2;
+    }
+    
+    .password-strength {
+        height: 4px;
+        background: #e0e0e0;
+        border-radius: 2px;
+        margin-top: 8px;
+        overflow: hidden;
+    }
+    
+    .password-strength-bar {
+        height: 100%;
+        width: 0%;
+        transition: all 0.3s;
+    }
+    
+    .links {
+        text-align: center;
+        margin-top: 20px;
+    }
+    
+    .links a {
+        color: #2196F3;
+        text-decoration: none;
+    }
+    
+    .links a:hover {
+        text-decoration: underline;
+    }
+    
+    .required {
+        color: red;
+    }
+    
+    .section-title {
+        font-size: 18px;
+        color: #2c3e50;
+        font-weight: 600;
+        margin: 30px 0 15px 0;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #e0e0e0;
+    }
+    
+    .help-text {
+        font-size: 13px;
+        color: #7f8c8d;
+        margin-top: 5px;
+    }
+</style>
+
+<div class="register-container">
+    <div class="register-header">
+        <div class="icon">
+            <i class="fa-solid fa-user-doctor"></i>
+        </div>
+        <h2>Doctor Registration</h2>
+        <p>Join our medical team and provide quality healthcare</p>
+    </div>
+    
+    <form method="POST" action="{{ url_for('auth.register_doctor') }}">
+        <!-- Personal Information -->
+        <div class="section-title">
+            <i class="fa-solid fa-user"></i> Personal Information
+        </div>
+        
+        <div class="form-group">
+            <label for="full_names">
+                <i class="fa-solid fa-id-card"></i> Full Name <span class="required">*</span>
+            </label>
+            <input type="text" id="full_names" name="full_names" placeholder="Dr. John Doe" required>
+        </div>
+        
+        <div class="form-row">
+            <div class="form-group">
+                <label for="username">
+                    <i class="fa-solid fa-at"></i> Username <span class="required">*</span>
+                </label>
+                <input type="text" id="username" name="username" placeholder="dr.johndoe" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="age">
+                    <i class="fa-solid fa-calendar"></i> Age
+                </label>
+                <input type="number" id="age" name="age" placeholder="35" min="25" max="100">
+            </div>
+        </div>
+        
+        <div class="form-row">
+            <div class="form-group">
+                <label for="email">
+                    <i class="fa-solid fa-envelope"></i> Email Address <span class="required">*</span>
+                </label>
+                <input type="email" id="email" name="email" placeholder="dr.doe@hospital.com" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="contact">
+                    <i class="fa-solid fa-phone"></i> Contact Number
+                </label>
+                <input type="tel" id="contact" name="contact" placeholder="+254 700 000 000">
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="national_id">
+                <i class="fa-solid fa-fingerprint"></i> National ID <span class="required">*</span>
+            </label>
+            <input type="text" id="national_id" name="national_id" placeholder="12345678" required>
+            <div class="help-text">Your unique national identification number</div>
+        </div>
+        
+        <div class="section-title">
+            <i class="fa-solid fa-stethoscope"></i> Professional Information
+        </div>
+        
+        <div class="form-group">
+            <label for="specialty">
+                <i class="fa-solid fa-user-md"></i> Medical Specialty <span class="required">*</span>
+            </label>
+            <select id="specialty" name="specialty" required>
+                <option value="">Select Specialty</option>
+                <option value="Cardiology">Cardiology</option>
+                <option value="Dermatology">Dermatology</option>
+                <option value="Endocrinology">Endocrinology</option>
+                <option value="Gastroenterology">Gastroenterology</option>
+                <option value="General Practice">General Practice</option>
+                <option value="Gynecology">Gynecology</option>
+                <option value="Nephrology">Nephrology</option>
+                <option value="Neurology">Neurology</option>
+                <option value="Oncology">Oncology</option>
+                <option value="Ophthalmology">Ophthalmology</option>
+                <option value="Orthopedics">Orthopedics</option>
+                <option value="Pediatrics">Pediatrics</option>
+                <option value="Psychiatry">Psychiatry</option>
+                <option value="Radiology">Radiology</option>
+                <option value="Surgery">Surgery</option>
+                <option value="Other">Other</option>
+            </select>
+        </div>
+        
+        <div class="section-title">
+            <i class="fa-solid fa-calendar-days"></i> Availability Schedule
+        </div>
+        
+        <div class="form-group">
+            <label for="day">
+                <i class="fa-solid fa-calendar-check"></i> Available Days
+            </label>
+            <select id="day" name="day">
+                <option value="">Select Days</option>
+                <option value="Monday-Friday">Monday - Friday</option>
+                <option value="Monday-Saturday">Monday - Saturday</option>
+                <option value="Monday-Sunday">Monday - Sunday (All Week)</option>
+                <option value="Weekdays">Weekdays Only</option>
+                <option value="Weekends">Weekends Only</option>
+                <option value="Custom">Custom Schedule</option>
+            </select>
+        </div>
+        
+        <div class="form-row">
+            <div class="form-group">
+                <label for="time_in">
+                    <i class="fa-solid fa-clock"></i> Start Time
+                </label>
+                <input type="time" id="time_in" name="time_in" value="08:00">
+            </div>
+            
+            <div class="form-group">
+                <label for="time_out">
+                    <i class="fa-solid fa-clock"></i> End Time
+                </label>
+                <input type="time" id="time_out" name="time_out" value="17:00">
+            </div>
+        </div>
+        
+        <!-- Security -->
+        <div class="section-title">
+            <i class="fa-solid fa-shield-halved"></i> Security Information
+        </div>
+        
+        <div class="form-group">
+            <label for="password">
+                <i class="fa-solid fa-lock"></i> Password <span class="required">*</span>
+            </label>
+            <input type="password" id="password" name="password" placeholder="Enter strong password" required onkeyup="checkPasswordStrength()">
+            <div class="password-strength">
+                <div class="password-strength-bar" id="strengthBar"></div>
+            </div>
+            <div class="help-text">Password must be at least 8 characters with uppercase, lowercase, and numbers</div>
+        </div>
+        
+        <div class="form-group">
+            <label for="password_confirm">
+                <i class="fa-solid fa-lock"></i> Confirm Password <span class="required">*</span>
+            </label>
+            <input type="password" id="password_confirm" name="password_confirm" placeholder="Re-enter password" required>
+        </div>
+        
+        <button type="submit" class="btn-register">
+            <i class="fa-solid fa-user-plus"></i> Register as Doctor
+        </button>
+        
+        <div class="links">
+            Already have an account? <a href="{{ url_for('auth.login') }}">Login here</a>
+        </div>
+    </form>
+</div>
+
+<script>
+    function checkPasswordStrength() {
+        const password = document.getElementById('password').value;
+        const strengthBar = document.getElementById('strengthBar');
+        
+        let strength = 0;
+        if (password.length >= 8) strength += 25;
+        if (password.match(/[a-z]+/)) strength += 25;
+        if (password.match(/[A-Z]+/)) strength += 25;
+        if (password.match(/[0-9]+/)) strength += 25;
+        
+        strengthBar.style.width = strength + '%';
+        
+        if (strength < 50) {
+            strengthBar.style.background = '#ff4444';
+        } else if (strength < 75) {
+            strengthBar.style.background = '#ffaa00';
+        } else {
+            strengthBar.style.background = '#2196F3';
+        }
+    }
+    
+    // Validate form before submission
+    document.querySelector('form').addEventListener('submit', function(e) {
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('password_confirm').value;
+        
+        if (password !== confirmPassword) {
+            e.preventDefault();
+            alert('Passwords do not match!');
+            return false;
+        }
+        
+        if (password.length < 8) {
+            e.preventDefault();
+            alert('Password must be at least 8 characters long!');
+            return false;
+        }
+    });
+</script>
+
+{% endblock %}

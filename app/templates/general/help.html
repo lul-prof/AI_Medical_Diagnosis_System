@@ -1,0 +1,90 @@
+    {% extends "index.html" %}
+    {% block title %}Help-System{% endblock %}
+{% block content %}
+<div class="container8">
+    <div class="probs">
+        <h1>Commonly asked questions and Encountered problems</h1>
+        <ol style="margin-left: 30px;">
+            <li>I can't find my symptoms:<b>Symptoms our AI Doctor undestands:</b>
+                <ul style="margin-left: 50px;">
+                    <li>fatigue,weight loss,restlessness,lethargy,irregular sugar level</li>
+                    <li>skin rash,high fever,blister,red sore around nose</li>
+                    <li>chills,vomiting,high fever,sweating,headache</li>
+                    <li>burning micturition,bladder discomfort</li>
+                    <li>continous sneezing,chills,fatigue,cough</li>
+                    <li>chills,vomiting,fatigue,weight loss</li>
+                    <li>joint pain,vomiting,yellowish skin,dark urine</li>
+                    <li>itching,fatigue,lethargy,yellowish skin</li>
+                    <li>vomiting,yellowish skin,abdominal pain,swelling of stomach</li> 
+                    <li>acidity,indigestion,headache,blurred and distorted vision</li>
+                    <li>fatigue,cough,high fever,breathlessness</li>
+                    <li>stomach pain, acidity, ulcers on tongue, vomiting</li>
+                    <li>vomiting, yellowish skin, nausea, loss of appetite</li>
+                    <li>vomiting, loss of appetite, abdominal pain, passage of gases</li>
+                    <li>vomiting, indigestion, loss of appetite, abdominal pain</li>
+                    <li>patches in throat, high fever, extra marital contacts</li>
+                    <li>vomiting, sunken eyes, dehydration, diarrhoea</li>
+                    <li>vomiting, dehydration, diarrhoea</li>
+                    <li>fatigue, cough, high fever, breathlessness</li>
+                    <li>cough, high fever, breathlessness, family history</li>
+                    <li>back pain, weakness in limbs, neck pain, dizziness</li>
+                    <li>vomiting, headache, weakness of one body side, altered sensorium</li>
+                    <li>itching, vomiting, fatigue, weight loss</li>
+                    <li>chills, fatigue, high fever, headache</li>
+                    <li>chills, fatigue, weight loss, cough</li>
+                    <li>chills, cough, high fever, breathlessness</li>
+                    <li>constipation, pain during bowel movements, pain in anal region, bloody stool</li>
+                    <li>vomiting, breathlessness, sweating, chest pain</li>
+                    <li>fatigue, weight gain, cold hands and feets, mood swings</li>
+                    <li>muscle weakness, stiff neck, swelling joints, movement stiffness</li>
+                    <li>joint pain, neck pain, hip joint pain, swelling joints</li>
+                    <li>vomiting, headache, spinning movements, loss of balance</li>
+                    <li>stomach pain, acidity, ulcers on tongue, vomiting</li>
+                    <li>itching,skin rash,stomach pain,burning micturition</li>
+                    <li>extra marital contacts,weight loss,restlessness, high fever</li>
+                    <li>headache,blurred and distorted vision,dizziness</li>
+                    <li>hip joint pain,swelling joints,knee pain,joint pain</li>
+                    <li>stomach pain,vomiting,bloody stool,loss of appetite </li>
+                    <li>chest pain,cough,breathlessness,chills</li>
+                    <li>dehydration,diarrhoea,abdominal pain</li>
+                </ul>
+            </li>
+            <li>
+                For Doctors:
+                <ul style="margin-left: 50px;">
+                    <li>For sex, 1 means male and 0 female</li>
+                    <li>For diagnosis, 1 means yes and 0 means no</li>
+                    <li><span style="color: red;">Ask any unclear functionalities below</span></li>
+                </ul>
+            </li>
+          
+        </ol>
+    </div>
+    <h2 style="width: 100%; text-align: center;">Ask a Question and help make the User Experience better</h2>
+    <div class="help-form">
+        <fieldset>
+            <form action="{{ url_for('main.problem' )}}" method="post">
+                <input type="text" name="name" placeholder="Names">
+                <input type="email" name="email" placeholder="Email">
+                <input type="tel" name="contact" placeholder="Contact">
+                <textarea name="problem" id="">Ask a Question
+                </textarea>
+                <pre>      <input type="submit" name="ask" id="" value="Ask"><input type="reset" name="reset" value="Clear"></pre>
+            </form>
+        </fieldset>
+    </div>
+    <div class="view-responses" style="justify-self: center; padding: 20px;">
+        <p>
+            <button style="background-color: green; border: 3px solid white; padding: 10px; border-radius: 10px;">
+                <a href="/responses" style="text-decoration: none; color: white;">View Responses</a>
+            </button>
+        </p>
+    </div>
+</div>
+
+<script>
+    function viewR(){
+        alert("Click to view Previous questions and responses")
+    }
+</script>
+{% endblock %}   

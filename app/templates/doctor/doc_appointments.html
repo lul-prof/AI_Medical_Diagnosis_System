@@ -1,0 +1,33 @@
+{% extends "doctor/Doc.html" %}
+{% block title %}{{ username }}-Appointments{% endblock %}
+
+{% block p %}Appointments{% endblock %}
+    
+{% block section %}
+<div class="app-tab" style="margin-top: 210px;">
+    {% if appointments %}
+    <table>
+        <tr>
+            <th>PATIENT ID</th>
+            <th>PATIENT NAME</th>
+            <th>DAY</th>
+            <th>TIME</th>
+        </tr>
+        {% for appointment in appointments %}
+        <tr>
+            <td>{{ appointment.id }}</td>
+            <td>{{ appointment.patient }}</td>
+            <td>{{ appointment.day }}</td>
+            <td>{{ appointment.time }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <p style="text-align: center;">
+    <button class="print-btn" onclick="window.print()">Print Records</button>
+    </p>
+    {% else %}
+    <p style="text-align: center; font-size: 30px; font-family:cursive; background-color: skyblue;padding: 20px; border-radius: 10px; border: 2px solid black;">No Appointments Booked {{ username }}!!!</p>
+    {% endif %}
+</div>
+
+{% endblock %}

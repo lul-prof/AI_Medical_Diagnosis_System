@@ -1,0 +1,114 @@
+{% extends "admin/admin.html" %}
+{% block title %}Appointments{% endblock %}
+
+ {% block admin %}
+
+ <div class="appointment-tab" style="justify-self: center; display: flex; gap: 2rem;">
+    <div class="table-1">
+    <h2 style="text-align: center;" >Doctors Schedule</h2>
+    {% if doctors %}
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>NAME</th>
+            <th>SPECIALTY</th>
+            <th>DAY</th>
+            <th>Time In</th>
+            <th>Time Out</th>
+        </tr>
+
+        {% for doc in doctors %}
+        <tr>
+            <td>{{ doc.id }}</td>
+            <td>{{ doc.full_names }}</td>
+            <td>{{ doc.specialty }}</td>
+            <td>{{ doc.day }}</td>
+            <td>{{ doc.time_in }}</td>
+            <td>{{ doc.time_out }}</td>
+        </tr>
+        {% endfor %}
+        
+    </table>
+    {% endif %}
+    </div>
+    <div class="table-2">
+
+    <h2 style="text-align: center;" >Appointment Queue</h2>
+    {% if patients %}
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>NAME</th>
+            <th>SPECIALIST</th>
+            <th>EMAIL</th>
+            <th>TIME</th>
+        </tr>
+
+        {% for pat in patients %}
+        <tr>
+            <td>{{ pat.id }}</td>
+            <td>{{ pat.name }}</td>
+            <td>{{ pat.specialty }}</td>
+            <td>{{ pat.email }}</td>
+            <td>{{ pat.day }}</td>
+        </tr>
+        {% endfor %}
+        
+    </table>
+    {% endif %}
+    </div>
+ </div>
+
+ <div class="appoint-form" style="justify-self: center; margin-top: 100px;">
+    <h2 style="text-align: center;">Verify Appointments</h2>
+    <fieldset style="border: 2px solid black; border-radius: 10px;">
+        <form action="{{ url_for('admin.appointments') }}" method="post">
+            <p>
+                <select name="patient"  style="width: 500px; border-top: 0; border-left:0 ; border-right: 0; border-bottom: 2px solid black; background: transparent;">
+                    <option value="" disabled selected>Patient</option>
+                    {% for pat in patients %}
+                        <option value="{{ pat.name }}">{{ pat.name }}</option>
+                    {% endfor %}
+                </select><br></p>
+                <p>
+                    <select name="email"  style="width: 500px; border-top: 0; border-left:0 ; border-right: 0; border-bottom: 2px solid black; background: transparent;">
+                        <option value="" disabled selected>Email</option>
+                        {% for pat in patients %}
+                            <option value="{{ pat.email }}">{{ pat.email }}</option>
+                        {% endfor %}
+                    </select><br></p>
+                    <p>
+                        <select name="specialist"  style="width: 500px; border-top: 0; border-left:0 ; border-right: 0; border-bottom: 2px solid black; background: transparent;">
+                            <option value="" disabled selected>Specialist</option>
+                            {% for doc in doctors %}
+                                <option value="{{ doc.specialty }}">{{ doc.specialty }}</option>
+                            {% endfor %}
+                        </select><br>
+
+                    </p>
+                
+                    <p>
+                        <select name="day"  style="width: 500px; border-top: 0; border-left:0 ; border-right: 0; border-bottom: 2px solid black; background: transparent;">
+                            <option value="" disabled selected>Day</option>
+                                <option value="monday">Monday</option>
+                                <option value="tuesday">Tuesday</option>
+                                <option value="wednesday">Wednesday</option>
+                                <option value="thursday">Thursday</option>
+                                <option value="friday">Friday</option>
+                                <option value="saturday">Saturday</option>
+                                <option value="sunday">Sunday</option>
+                        </select><br></p>
+
+                    
+                <p>
+                    Time:<input type="datetime-local" name="time" style="background: transparent; border: 3px solid black; width: 400px; font-weight: bolder; font-size: 20px;" required>
+                </p>
+                
+            <p style="text-align: center; border-radius: 20px;">
+                <input type="submit" value="Book" style="background-color: green; padding: 10px;  border: 3px solid white; color: white; cursor: pointer;">
+            </p>
+        </form>
+    </fieldset>
+ </div>
+
+{% endblock %}

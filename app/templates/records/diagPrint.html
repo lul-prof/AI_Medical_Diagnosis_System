@@ -1,0 +1,29 @@
+{% extends "index.html" %}
+{%block title%} {{ diag.name }} {% endblock %}
+
+{% block content %}
+
+<div class="self-res" style="margin-top: 100px; justify-self: center;">
+    <h2 style="text-align:center ;"> {{ diag.name }} Self Diagnosis Results</h2>    <p>
+    <table>
+        <tr>
+            <th>NAME</th>
+            <th>Symptoms</th>
+            <th>Diagnosis</th>
+            <th>DESCRIPTION</th>
+        </tr>
+        <tr>
+            <td>{{ diag.name }}</td>
+            <td>{{ diag.symptoms }}</td>
+            <td>{{ diag.diagnosis }}</td>
+            <td>{{ diag.description }}</td>
+        </tr>
+    </table>
+    <p style="text-align: center;">
+    <button class="print-btn" onclick="window.print()">Print Records</button>
+    </p>
+<footer>
+    <p style="text-align: center;">Printed by {{ diag.name }} </p>
+</footer>
+</div>
+{% endblock %}

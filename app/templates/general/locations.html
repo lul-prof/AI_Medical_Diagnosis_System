@@ -1,0 +1,47 @@
+    {% extends "index.html" %}
+    {% block title %}About Us{% endblock %}     
+{%block p%}We Are Located All Over The Country{% endblock %}
+{% block content %}
+<div class="main-b">
+    <div class="container6">
+        <div class="card1" style="display: flex; flex-direction:column; align-items: center; justify-content: center;">
+            <img src="{{url_for('static',filename='img/icons/loc1.jpg')}}" alt="">
+            <p>Nairobi Branch</p>
+        </div>
+        <div class="card2" style="display: flex; flex-direction:column; align-items: center; justify-content: center;">
+            <img src="{{url_for('static',filename='img/icons/loc2.jpeg')}}" alt="">
+            <p>Kiambu Branch</p>
+        </div>
+        <div class="card3" style="display: flex; flex-direction:column; align-items: center; justify-content: center;">
+            <img src="{{url_for('static',filename='img/icons/loc3.jpg')}}" alt="">
+            <p>Eldoret Branch</p>
+        </div>
+        <div class="card4" style="display: flex; flex-direction:column; align-items: center; justify-content: center;">
+            <img src="{{url_for('static',filename='img/icons/loc4.jpeg')}}" alt="">
+            <p>Muranga Branch</p>
+        </div>
+      </div>
+      <div class="doctors">
+        <h1>Our Doctors Are Graduates From Top Universities In The World</h1>
+        <p>Our Team Comprises of:</p>
+      </div>
+     <div class="outro">
+        <div class="card1" style="display: flex; flex-direction:column; align-items: center; justify-content: center;">
+            <img src="{{url_for('static',filename='img/icons/doc1.jpeg')}}" alt="">
+            <p>Dr.Lawrence</p>
+        </div>
+        <div class="card2" style="display: flex; flex-direction:column; align-items: center; justify-content: center;">
+            <img src="{{url_for('static',filename='img/icons/doc2.jpg')}}"  alt="">
+            <p>Dr.Sanford</p>
+        </div>
+        <div class="card3" style="display: flex; flex-direction:column; align-items: center; justify-content: center;">
+            <img src="{{url_for('static',filename='img/icons/doc3.jpg')}}"  alt="">
+            <p>Dr.William</p>
+        </div>
+        <div class="card4" style="display: flex; flex-direction:column; align-items: center; justify-content: center;">
+            <img src="{{url_for('static',filename='img/icons/doc4.jpeg')}}"  alt="">
+            <p>Dr.Perry</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

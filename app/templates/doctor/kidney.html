@@ -1,0 +1,136 @@
+
+{% extends "doctor/Doc.html" %}
+{% block title %}Kidney-Test-Platform{% endblock %}
+
+    {% block p %}Kidney Test Platform{% endblock %}
+
+{% block section %}
+<div class="kid-res">
+<button class="records" style="background-color: green; padding: 10px; border-radius: 10px; border: 2px solid black;"><a href="{{ url_for('doctor.KidResultBtn') }}" style="text-decoration: none; color: white;"> View Records</a></button>
+</div>
+  <div class="form-selct">
+    <fieldset>
+        <form action="{{ url_for('doctor.TestKidney') }}" method="post">
+            <p><input type="text" name="name" required placeholder="Patients name"> <input type="text" name="age" required placeholder="Patients Age"></p>
+            <p><input type="text" name="blood_pressure" required placeholder="Blood Pressure(mm/Hg)"> <input type="text" name="specific_gravity" required placeholder="Specific Gravity"> <input type="text" name="albumin" required placeholder="Albumin"> </p>
+            <p><input type="text" name="sugar" required placeholder="Sugar">  <input type="text" name="blood_glucose" required  placeholder="Blood Glucose(mgs/dl)"> <input type="text" name="blood_urea" required  placeholder="Blood Urea(mgs/dl)"></p>
+            <p><input type="text" name="serum_creatinine" required  placeholder="Serum Creatinine(mgs/dl)"> <input type="text" name="sodium" required  placeholder="Sodium(mEq/L)"> <input type="text" name="potassium" required  placeholder="Pottasium(mEq/L)"> </p>
+            <p><input type="text" name="hemoglobin" required  placeholder="Hemoglobin (gms)"> <input type="text" name="packed_cell_volume" required placeholder="Packed Cell Volume"> <input type="text" name="white_bc" required placeholder="White Blood Cells (cells/cmm)"></p>
+            <p><input type="text" name="red_bc" required placeholder="Red Blood Cells (millions/cm)"> <input type="text" name="rbc" required placeholder="Red Blood Cells:normal"></p>
+            <p>
+            <label style="font-size: 12px;">Pus Cells Normal?:</label>
+            <select name="pus_cells_normal" required>
+                <option value="no">No</option>
+                <option value="yes">Yes</option>
+            </select>
+            <label style="font-size: 12px;">Pus Cell clumps present?:</label>
+            <select name="puss_cell_clumps_present" required>
+                <option value="no">No</option>
+                <option value="yes">Yes</option>
+            </select><br>
+            </p>
+            <p>
+            <label style="font-size: 12px;">Bacteria Present?:</label>
+            <select name="Bacteria_present" required>
+                <option value="no">No</option>
+                <option value="yes">Yes</option>
+            </select>
+            <label style="font-size: 12px;">Hypertension?:</label>
+            <select name="hypertension" required>
+                <option value="no">No</option>
+                <option value="yes">Yes</option>
+            </select><br>
+            </p>
+            <p>
+            <label style="font-size: 12px;">Diabetes Mellitus?:</label>
+            <select name="diabetes_mellitus" required>
+                <option value="no">No</option>
+                <option value="yes">Yes</option>
+            </select>
+            <label style="font-size: 12px;">Coronary Artery Disease?:</label>
+            <select name="coronary_artery_disease" required>
+                <option value="no">No</option>
+                <option value="yes">Yes</option>
+            </select><br>
+            </p>
+            <p>
+            <label style="font-size: 12px;">Poor Appetite?:</label>
+            <select name="appetite" required>
+                <option value="no">No</option>
+                <option value="yes">Yes</option>
+            </select>
+            <label style="font-size: 12px;">Radal Edema?:</label>
+            <select name="radal_edema" required>
+                <option value="no">No</option>
+                <option value="yes">Yes</option>
+            </select><br>
+            </p>
+            <p>
+            <label style="font-size: 12px;">Anaemia?:</label>
+            <select name="anaemia" required>
+                <option value="no">No</option>
+                <option value="yes">Yes</option>
+            </select><br>
+            </p>
+             <p style="text-align: center;">
+            <input type="submit" value="Search">
+            </p>
+        </form>
+    </fieldset>
+  </div>
+</div>
+
+{% if kidney_diagnosis %}
+<div class="results3">
+    <p style="font-size: 15px;">Kidney Disease Results</p>
+    <button class="dis" onclick="openPopup3()">Diagnosis</button> <button onclick="openPopup6()">Remedies</button>
+</div>
+{% endif %}
+
+
+<div class="popup3" id="popup3">
+    <p style="font-size: 15px;">
+       {{ kidney_diagnosis }}
+        <br>
+        <button type="button" onclick="closePopup3()">OK</button>
+    </p>
+</div> 
+
+
+{% if remedies %}
+<div class="popup6" id="popup6">
+    <h3>Kidney Remedies</h3>
+    <ol>
+        {% for remedy in remedies %}
+            <li>{{ remedy }}</li>
+        {% endfor %}
+        <button type="button" onclick="closePopup6()">OK</button>
+    </ol>
+</div>
+{% endif %}
+
+
+<script>
+let popup1=document.getElementById("popup3");
+
+
+function openPopup3(){
+    popup1.classList.add("open-popup3");
+}
+function closePopup3(){
+    popup1.classList.remove("open-popup3");
+}
+
+/* Popup 6*/
+let popup6=document.getElementById("popup6");
+
+
+function openPopup6(){
+    popup6.classList.add("open-popup6");
+}
+function closePopup6(){
+    popup6.classList.remove("open-popup6");
+}
+
+</script>
+{% endblock %}

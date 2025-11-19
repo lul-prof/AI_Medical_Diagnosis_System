@@ -1,0 +1,65 @@
+    {% extends "index.html" %}
+    {% block title %}Developer{% endblock %}
+
+{% block content %} 
+<div class="container7">
+    <div class="dev-info">
+        <img src="{{url_for('static',filename='img/icons/israel.png')}}" alt="Developer"><br><br>
+    
+        <div class="dev-info1">
+        <p><h2 style="color: black;">Name:</h2>Israel Mutua</p><br><br>
+        <p><h2 style="color: black;">Contacts:</h2>israelmutua539@gmail.com || +254742169773 || Nairobi,Kenya</p><br><br>
+        <p><h2 style="color: black;">Professional Summary:</h2>I am passionate programmer who is skilled in a few programming languages including: C, C++, Java, C#, Python.</p>
+        <p>I am also equiped with scripting skills in HTML, CSS and Javascript.</p>
+        <p>I am particularly fascinated by Web Development but I am also skilled at Game Development, Android Development and Software Engineering in General.</p>
+        <p>I have been Programming for about 4 years now and I'm interested in learning new things about the Software Engineering field so as to become the best possible version of myself.</p><br><br>
+        <p><h2 style="color: black;">Work Experience:</h2>Personal Projects/Freelancer</p><br>
+        <p><h2 style="color: black;">Education:</h2>
+        <ul style="list-style: none;">
+            <li><b style="color: black;">Zetech University:</b> Bachelor of Science in Software Engineering </li>
+            <li><b style="color: black;">Technical Coursework:</b> Database Systems, Programming Languages, Algorithms & Data Structures, Design Thinking, User Centered Design, Web Development, Android Development, Game Development, Software Testing, Software Engineering, Project Management, Networking.</li>
+            <li><b style="color: black;">Programming Languages:</b> C, C++, Java, C#, Java, Python, SQL, PHP, Javascript, HTML/CSS.</li>
+            <li><b style="color: black;">Frameworks:</b> Flask, Django, Laravel.</li>
+            <li><b style="color: black;">Development Tools:</b> Git, Agile & Scrum methods, Firebase, Jupyter Notebooks and Figma.</li>
+        </ul>
+        </p><br><br>
+        <p><h2 style="color: black;">Certifications:</h2>
+        <ul style="list-style: none;">
+            <li>Web Development (Kenya Institute of Project Management)-2022</li>
+        </ul>
+        </p><br>
+        <p><h2 style="color: black;">Skills:</h2>
+        <ul style="list-style: none;">
+            <li>Artificial Intelligence and Machine Learning </li>
+            <li>Secure Coding Practices</li>
+            <li>Web Development</li>
+            <li>Database and SQL Knowledge </li>
+            <li>Debugging </li>
+            <li>Communication and collaboration</li>
+            <li>Problem solving and Critical Thinking</li>
+            <li>Continuous Learning</li>
+        </ul>
+        </p><br>
+        <p><h2 style="color: black;">Activities and Interests:</h2>
+        <ul style="list-style: none;">
+            <li>
+            Exploring emerging technologies such as blockchain and IoT.
+            </li>
+            <li>
+            Participating in hackathons and coding competitions to solve real-world problems
+            </li>
+        </ul>
+        
+        </p>
+        
+        </div>
+    </div>
+        <div class="back">
+            <p>
+            <button>
+                <a href="{{ url_for('patient.index') }}">Product</a>
+            </button>
+            </p>
+        </div>
+</div>
+{% endblock %}

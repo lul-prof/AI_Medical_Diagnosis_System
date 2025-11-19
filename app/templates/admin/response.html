@@ -1,0 +1,70 @@
+{% extends "admin.html" %}
+{% block title %}FAQS-Response{% endblock %}
+
+ {% block admin %}
+
+ <div class="quiz-tab" style="justify-self: center;">
+    <h2 style="text-align: center;" >Questions Asked</h2>
+    {% if questions %}
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>NAMES</th>
+            <th>EMAIL</th>
+            <th>CONTACT</th>
+            <th>QUESTION</th>
+        </tr>
+
+        {% for quiz in questions %}
+        <tr>
+            <td>{{ quiz.id }}</td>
+            <td>{{ quiz.names }}</td>
+            <td>{{ quiz.email }}</td>
+            <td>{{ quiz.contact }}</td>
+            <td>{{ quiz.question }}</td>
+        </tr>
+        {% endfor %}
+        
+    </table>
+    {% endif %}
+
+ <div class="response-form" style="justify-self: center; margin-top: 100px;">
+    <h2 style="text-align: center;">Respond to Questions</h2>
+    <fieldset style="border: 2px solid black; border-radius: 10px;">
+        <form action="" method="post">
+            <p>
+                <select name="user" required style="width: 500px; border-top: 0; border-left:0 ; border-right: 0; border-bottom: 2px solid black; background: transparent;">
+                    <option value="" disabled selected>User</option>
+                    {% for quiz in questions %}
+                        <option value="{{ quiz.names }}">{{ quiz.names }}</option>
+                    {% endfor %}
+                </select><br></p>
+
+                <select name="email" required style="width: 500px; border-top: 0; border-left:0 ; border-right: 0; border-bottom: 2px solid black; background: transparent;">
+                    <option value="" disabled selected>Email</option>
+                    {% for quiz in questions %}
+                        <option value="{{ quiz.email }}">{{ quiz.email }}</option>
+                    {% endfor %}
+                </select><br></p>
+
+                <p>
+                    <select name="question" required style="width: 500px; border-top: 0; border-left:0 ; border-right: 0; border-bottom: 2px solid black; background: transparent;">
+                        <option value="" disabled selected>Question</option>
+                        {% for quiz in questions %}
+                            <option value="{{ quiz.question }}">{{ quiz.question }}</option>
+                        {% endfor %}
+                    </select><br></p>
+                <p>
+                <textarea name="response" id="response" required style="width: 500px; border-top: 0; border-left:0 ; border-right: 0; border-bottom: 2px solid black; background: transparent;">Response
+
+                </textarea>
+                </p>
+            
+            <p style="text-align: center;">
+                <input type="submit" value="Answer" style="background-color: green; padding: 10px; border-radius: 10px; border: 3px solid white; color: white; cursor: pointer;">
+            </p>
+        </form>
+    </fieldset>
+ </div>
+
+{% endblock %}

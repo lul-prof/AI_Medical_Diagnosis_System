@@ -1,0 +1,26 @@
+    {% extends "doctor/Doc.html" %}
+    {% block title %}Self-Diagnosis-Records{% endblock %}
+    {% block section %}
+    <div class="tab-rec" style="justify-self: center; margin-top: 210px;">
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>NAME</th>
+            <th>Symptoms</th>
+            <th>Diagnosis</th>
+            <th>time</th>
+            <th>Actions</th>
+        </tr>
+        {% for record in records %}
+        <tr>
+            <td>{{ record.id }}</td>
+            <td>{{ record.name }}</td>
+            <td>{{ record.symptoms }}</td>
+            <td>{{ record.diagnosis }}</td>
+            <td>{{ record.time }}</td>
+            <td> <button style="background-color: blue; border: 2px solid black; padding: 5px; border-radius: 10px;"><a href="{{ url_for('doctor.view_records', id=record.id) }} " style="text-decoration: none; color: white; font-weight: bold;">View</a></button>  <button style="background-color: red; border: 2px solid black; padding: 5px; border-radius: 10px;"><a href="{{ url_for('doctor.delete_records', id=record.id) }}" style="text-decoration: none; color: white; font-weight: bold;">Delete</a></button> </td>
+        </tr>
+        {% endfor %}
+    </table>
+    </div>
+{% endblock %}

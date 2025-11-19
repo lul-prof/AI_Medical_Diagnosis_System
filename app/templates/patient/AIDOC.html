@@ -1,0 +1,78 @@
+{% extends "index.html" %}
+    {% block title %}AI-Doc{% endblock %}
+<hr>
+{% block p %} KNH AI Doctor{% endblock %}
+<hr>
+{% block content %}
+
+   <div class="main-sec">
+      <div class="p">
+         <p><i class="fa-solid fa-robot" style="color: #000000;"></i> Medical Diagnosis</p>
+      </div>
+
+      <div class="container2">
+         <fieldset>
+            <legend></legend>
+            <form action="{{ url_for('medical_test.predict') }}" method="post">
+                <p>Patient Name:</p>
+               <input type="text" name="name" placeholder="Enter your name">
+
+               <p>Email:</p>
+                <input type="email" name="email" id="email" placeholder="Email Address" required>
+               
+               
+            <p>
+            <select name="symptoms" id="symptoms" required style="border: 0; background: transparent; border-bottom: 2px solid black; width: 400px; font-weight: bold; outline: none;">
+                <option value="" disabled selected style="text-align: center; font-weight: bold;">Select Symptoms</option>
+                <option value="cough, high fever, breathlessness, family history">cough, high fever, breathlessness, family history</option>
+                <option value="fatigue,weight loss,restlessness,lethargy,irregular sugar level">fatigue,weight loss,restlessness,lethargy,irregular sugar level</option>
+                <option value="skin rash,high fever,blister,red sore around nose">skin rash,high fever,blister,red sore around nose</option>
+                <option value="chills,vomiting,high fever,sweating,headache">chills,vomiting,high fever,sweating,headache</option>
+                <option value="burning micturition,bladder discomfort">burning micturition,bladder discomfort</option>
+                <option value="continous sneezing,chills,fatigue,cough">continous sneezing,chills,fatigue,cough</option>
+                <option value="chills,vomiting,fatigue,weight loss">chills,vomiting,fatigue,weight loss</option>
+                <option value="joint pain,vomiting,yellowish skin,dark urine">joint pain,vomiting,yellowish skin,dark urine</option>
+                <option value="itching,fatigue,lethargy,yellowish skin">itching,fatigue,lethargy,yellowish skin</option>
+                <option value="vomiting,yellowish skin,abdominal pain,swelling of stomach">vomiting,yellowish skin,abdominal pain,swelling of stomach</option>
+                <option value="acidity,indigestion,headache,blurred and distorted vision">acidity,indigestion,headache,blurred and distorted vision</option>
+                <option value="fatigue,cough,high fever,breathlessness">fatigue,cough,high fever,breathlessness</option>
+                <option value="stomach pain, acidity, ulcers on tongue, vomiting">stomach pain, acidity, ulcers on tongue, vomiting</option>
+                <option value="vomiting, yellowish skin, nausea, loss of appetite">vomiting, yellowish skin, nausea, loss of appetite</option>
+                <option value="vomiting, indigestion, loss of appetite, abdominal pain">vomiting, indigestion, loss of appetite, abdominal pain</option>
+                <option value="patches in throat, high fever, extra marital contacts">patches in throat, high fever, extra marital contacts</option>
+                <option value="vomiting, sunken eyes, dehydration, diarrhoea">vomiting, sunken eyes, dehydration, diarrhoea</option>
+                <option value="vomiting, dehydration, diarrhoea">vomiting, dehydration, diarrhoea</option>
+                <option value="fatigue, cough, high fever, breathlessness">fatigue, cough, high fever, breathlessness</option>
+                <option value="cough, high fever, breathlessness, family history">cough, high fever, breathlessness, family history</option>
+                <option value="back pain, weakness in limbs, neck pain, dizziness">back pain, weakness in limbs, neck pain, dizziness</option>
+                <option value="vomiting, headache, weakness of one body side, altered sensorium">vomiting, headache, weakness of one body side, altered sensorium</option>
+                <option value="itching, vomiting, fatigue, weight loss">itching, vomiting, fatigue, weight loss</option>
+                <option value="chills, fatigue, high fever, headache">chills, fatigue, high fever, headache</option>
+                <option value="chills, cough, high fever, breathlessness">chills, cough, high fever, breathlessness</option>
+                <option value="constipation, pain during bowel movements, pain in anal region, bloody stool">constipation, pain during bowel movements, pain in anal region, bloody stool</option>
+                <option value="vomiting, breathlessness, sweating, chest pain">vomiting, breathlessness, sweating, chest pain</option>
+                <option value="fatigue, weight gain, cold hands and feets, mood swings">fatigue, weight gain, cold hands and feets, mood swings</option>
+                <option value="muscle weakness, stiff neck, swelling joints, movement stiffness">muscle weakness, stiff neck, swelling joints, movement stiffness</option>
+                <option value="joint pain, neck pain, hip joint pain, swelling joints">joint pain, neck pain, hip joint pain, swelling joints</option>
+                <option value="vomiting, headache, spinning movements, loss of balance">vomiting, headache, spinning movements, loss of balance</option>
+                <option value="hip joint pain,swelling joints,knee pain,joint pain">hip joint pain,swelling joints,knee pain,joint pain</option>
+                <option value="chest pain,cough,breathlessness,chills">chest pain,cough,breathlessness,chills</option>
+             </select><br>
+            </p>   
+           <button type="submit">Analyze Symptoms</button>
+            </form>
+         </fieldset>
+      </div>
+
+        
+   </div>
+
+
+
+
+{% endblock %}
+
+
+
+
+    

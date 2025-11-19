@@ -1,0 +1,36 @@
+    {% extends "admin/admin.html" %}
+    {% block title %}Self-Diagnosis-Records{% endblock %}
+    {% block admin %}
+    <div class="tab-rec" style="justify-self: center; margin-top: 100px;">
+    {% if records %}
+        <table>
+         <thead>  
+        <tr>
+            <th>ID</th>
+            <th>NAME</th>
+            <th>Symptoms</th>
+            <th>Diagnosis</th>
+            <th>time</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for record in records %}
+        <tr>
+            <td>{{ record.id }}</td>
+            <td>{{ record.name }}</td>
+            <td>{{ record.symptoms }}</td>
+            <td>{{ record.diagnosis }}</td>
+            <td>{{ record.time }}</td>
+            <td> <button style="background-color: blue; border: 2px solid black; padding: 5px; border-radius: 10px;"><a href="{{ url_for('admin.view_records', id=record.id) }} " style="text-decoration: none; color: white; font-weight: bold;">View</a></button>  <button style="background-color: red; border: 2px solid black; padding: 5px; border-radius: 10px;"><a href="{{ url_for('admin.delete_records', id=record.id) }}" style="text-decoration: none; color: white; font-weight: bold;">Delete</a></button> </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <div class="alert alert-info">
+            No self-diagnosis records found.
+        </div>
+    {% endif %}
+    </div>
+{% endblock %}

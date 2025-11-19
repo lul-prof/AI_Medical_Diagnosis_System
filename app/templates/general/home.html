@@ -1,0 +1,209 @@
+{% extends "index.html" %}
+
+{% block content %}
+
+<style>
+.slide-container{
+         position: relative;
+         width:100%;
+         padding: 5px;
+         cursor: pointer;
+         height: 800px;
+         background: transparent;
+         background-color: transparent;
+         border-radius: 10px;
+         border: 2px solid white;
+      }
+      .slide-container .slides{
+         width: 100%;
+         height: calc(100% - 5px);
+         position: relative;
+         overflow: hidden;
+      }
+      .slide-container .slides img{
+         border-radius: 10px;
+         width: 100%;
+         height: 100vh;
+         position: absolute;
+         object-fit: cover;
+      }
+      .slide-container .slides img:not(.active){
+         top:0;
+         left:-100%;
+      }
+      span.next, span.prev{
+         position:absolute;
+         top:50%;
+         transform: translateY(-50%);
+         padding: 14px;
+         color:black;
+         font-size: 44px;
+         font-weight: bold;
+         transition: 0.5s;
+         border-radius: 3px;
+         user-select: none;
+         cursor: pointer;
+         z-index: 1;
+      }
+      span.next{
+         right: 20px;
+      }
+      span.prev{
+         left: 20px;
+      }
+      span.next:hover, span.prev:hover{
+         background-color: #ede6d6;
+         opacity: 0.5;
+         color: rgb(14, 13, 13);
+      }
+      .flash-container {
+            text-align: center;
+            background-color: #28a745;
+            color: white;
+            padding: 15px;
+            width: 250px;
+            position: absolute;
+            top:1%;
+            left: 38%;
+            border-radius: 5px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        .flash-container button {
+            background: white;
+            border: none;
+            margin-left: 10px;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 3px;
+        }
+      @keyframes next1{
+         from{
+            left:0%
+         }
+         to{
+            left:-100%;
+
+         }
+      }
+      @keyframes next2{
+         from{
+            left:100%
+         }
+         to{
+            left:0%;
+
+         }
+      }
+      @keyframes prev1{
+         from{
+            left:0%
+         }
+         to{
+            left:100%;
+
+         }
+      }
+      @keyframes prev2{
+         from{
+            left:-100%
+         }
+         to{
+            left:0%;
+
+         }
+        }
+</style>
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+   <div id="flash-message" class="flash-container">
+       <p>{% for message in messages %}{{ message }}<br>{% endfor %}</p>
+       <button onclick="closeFlash()">OK</button>
+{% endif %}
+{% endwith %}
+<div class="slide-container">
+    <div class="slides">
+       <img src="{{url_for('static',filename='img/icons/card1.jpg')}}" alt="Image" class="active">
+       <img src="{{url_for('static',filename='img/icons/card2.png')}}"  alt="Image">
+       <img src="{{url_for('static',filename='img/icons/card3.jpg')}}"  alt="Image">
+       <img src="{{url_for('static',filename='img/icons/card4.png')}}"  alt="Image">
+       <img src="{{url_for('static',filename='img/icons/card5.jpg')}}"  alt="Image">
+       <img src="{{url_for('static',filename='img/icons/card6.jpeg')}}"  alt="Image">
+       <img src="{{url_for('static',filename='img/icons/card3.jpg')}}"  alt="Image">
+       <img src="{{url_for('static',filename='img/icons/card1.jpg')}}" alt="Image">
+       <img src="{{url_for('static',filename='img/icons/card3.jpg')}}"  alt="Image">
+       <img src="{{url_for('static',filename='img/icons/card1.jpg')}}" alt="Image">
+       <img src="{{url_for('static',filename='img/icons/card5.jpg')}}"  alt="Image">
+       <img src="{{url_for('static',filename='img/icons/card3.jpg')}}"  alt="Image">
+       <img src="{{url_for('static',filename='img/icons/card1.jpg')}}" alt="Image">
+       <img src="{{url_for('static',filename='img/icons/card5.jpg')}}"  alt="Image">
+       <img src="{{url_for('static',filename='img/icons/card3.jpg')}}"  alt="Image">
+       <img src="{{url_for('static',filename='img/icons/card1.jpg')}}" alt="Image">
+       <img src="{{url_for('static',filename='img/icons/card5.jpg')}}"  alt="Image">
+       <img src="{{url_for('static',filename='img/icons/card3.jpg')}}"  alt="Image">
+       <img src="{{url_for('static',filename='img/icons/card1.jpg')}}" alt="Image">
+       <img src="{{url_for('static',filename='img/icons/card2.png')}}"  alt="Image">
+       <img src="{{url_for('static',filename='img/icons/card3.jpg')}}"  alt="Image">
+       <img src="{{url_for('static',filename='img/icons/card4.png')}}"  alt="Image">
+       <img src="{{url_for('static',filename='img/icons/card5.jpg')}}"  alt="Image">
+    </div>
+    <div class="buttons">
+       <span class="next">&#10095;</span>
+       <span class="prev">&#10094;</span>
+    </div>
+      
+     </div>
+ </div>
+ <script type="text/javascript">
+    //accessing images
+    let slideImages=document.querySelectorAll('.slides img');
+    //accessing prev and next buttons
+    let next=document.querySelector('.next');
+    let prev=document.querySelector('.prev');
+
+    var counter=0;
+
+    next.addEventListener('click', slideNext);
+    function slideNext(){
+       slideImages[counter].style.animation='next1 0.5s ease-in forwards';
+       if(counter>=slideImages.length-1){
+          counter=0;
+       }
+       else{
+          counter++;
+       }
+       slideImages[counter].style.animation='next2 0.5s ease-in forwards';
+
+    }
+
+    prev.addEventListener('click', slidePrev);
+    function slidePrev(){
+       slideImages[counter].style.animation='prev1 0.5s ease-in forwards';
+       if(counter==0){
+          counter=slideImages.length-1;
+       }
+       else{
+          counter--;
+       }
+       slideImages[counter].style.animation='prev2 0.5s ease-in forwards';
+
+    }
+    //auto slider
+    function autoSliding(){
+       deleteInterval=setInterval(timer,1500);
+       function timer(){
+          slideNext();
+       }
+    }
+    autoSliding();
+
+    //stopping autoslider on mouse over
+    const container=document.querySelector('.slide-container');
+    container.addEventListener('mouseover',function(){
+       clearInterval(deleteInterval);
+    });
+
+    //resume autosliding
+    container.addEventListener('mouseout',autoSliding);
+ </script>
+
+{% endblock %}

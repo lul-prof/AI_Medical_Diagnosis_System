@@ -1,0 +1,30 @@
+{% extends "admin/admin.html" %}
+
+{% block title %}View-Admin{% endblock %}
+
+{% block admin %}
+<div class="p-view" style="justify-self: center;">
+    <p style="text-align: center;">System Admins</p>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>USERNAME</th>
+            <th>permissions</th>    
+            <th>Time</th>          
+        </tr>
+        {% for admin in admins %}
+        <tr>
+            <td>{{ admin.id }}</td>
+            <td>{{ admin.username }}</td>
+            <td>{{ admin.permissions }}</td>
+            <td>{{ admin.created_at }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+<p style="text-align: center; margin-top: 20px;">
+<button class="print-btn" onclick="window.print()">Print Records</button>
+</p>
+</div>
+
+{% endblock %}
+

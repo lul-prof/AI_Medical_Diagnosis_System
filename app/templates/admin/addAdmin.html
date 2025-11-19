@@ -1,0 +1,23 @@
+{% extends "admin.html" %}
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block admin %}
+
+    <div class="login" style="margin-top: 10px;">
+        <h1 style="text-align: center; padding: 30px;">Add An Admin</h1>
+    <fieldset style="border: 2px solid black;">
+        <form action="/add_admin" method="post">
+            <img src="{{url_for('static',filename='logo2.1.png')}}" alt="Logo"><br>
+            <p>
+            <input type="text" name="username" id="username" placeholder="Username" required><br><br>
+            <input type="password" name="password" id="password" placeholder="Password" required><br><br>
+            </p>
+            <p>
+            <input type="submit" name="login" value="Add Admin" id="Login"><br><br>
+            </p>
+        </form>
+    </fieldset>
+</div>
+
+
+{% endblock %}
