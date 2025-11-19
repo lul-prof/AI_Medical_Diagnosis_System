@@ -45,7 +45,7 @@ class ProductionConfig(Config):
     
     #PostgreSQL 
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
-        'postgresql://user:password@localhost/medical_records'
+        'postgresql://lulprof:VuSW0Z34Y05JkilgVieLSvh7zKXnceHo@dpg-d4epm075r7bs73fu5nd0-a/ai_medical_diag'
     
     
     
