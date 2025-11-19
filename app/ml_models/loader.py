@@ -1,25 +1,27 @@
+import os
 import pandas as pd
 import pickle
 
-#loading datasets for Disease prediction
-symptoms=pd.read_csv("datasets\symtoms_df.csv")
-precaution=pd.read_csv("datasets\precautions_df.csv")
-workout=pd.read_csv("datasets\workout_df.csv")
-description=pd.read_csv("datasets\description.csv")
-medication=pd.read_csv("datasets\medications.csv")
-diet=pd.read_csv("datasets\diets.csv")
-diabetes=pd.read_csv("datasets\diabetes.csv")
-heart_data=pd.read_csv("datasets\heart_disease_data.csv")
-kidney_data=pd.read_csv("datasets\kidney Dataset.csv")
+# Get the base directory
+base_dir = os.path.dirname(os.path.abspath(__file__))
+project_root = os.path.join(base_dir, '..', '..')
 
-#load model for disease prediction
-svc=pickle.load(open("models\svc.pkl",'rb'))
+# Load datasets with proper paths
+symptoms = pd.read_csv(os.path.join(project_root, "datasets/symtoms_df.csv"))
+precaution = pd.read_csv(os.path.join(project_root, "datasets/precautions_df.csv"))
+workout = pd.read_csv(os.path.join(project_root, "datasets/workout_df.csv"))
+description = pd.read_csv(os.path.join(project_root, "datasets/description.csv"))
+medication = pd.read_csv(os.path.join(project_root, "datasets/medications.csv"))
+diet = pd.read_csv(os.path.join(project_root, "datasets/diets.csv"))
+diabetes = pd.read_csv(os.path.join(project_root, "datasets/diabetes.csv"))
+heart_data = pd.read_csv(os.path.join(project_root, "datasets/heart_disease_data.csv"))
+kidney_data = pd.read_csv(os.path.join(project_root, "datasets/kidney Dataset.csv"))
 
-
-#models for diabetes and heart defect
-model=pickle.load(open("models\heart.pkl",'rb'))
-kidney_model=pickle.load(open("models\kidney.pkl",'rb'))
-classifier=pickle.load(open("models\diabetes.sav",'rb'))
+# Load models with proper paths
+svc = pickle.load(open(os.path.join(project_root, "models/svc.pkl"), 'rb'))
+model = pickle.load(open(os.path.join(project_root, "models/heart.pkl"), 'rb'))
+kidney_model = pickle.load(open(os.path.join(project_root, "models/kidney.pkl"), 'rb'))
+classifier = pickle.load(open(os.path.join(project_root, "models/diabetes.sav"), 'rb'))
 
 diabetes_remedies = [
     "Diet: Balanced diet",
